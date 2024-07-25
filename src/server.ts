@@ -1,5 +1,6 @@
 import http, { IncomingMessage, ServerResponse } from "http"
 import *as url from "url";
+import { Routing } from "./Server Routing/routing";
 
 const hostname: string = 'localhost';
 const port: number = 5000;
@@ -12,18 +13,20 @@ http.createServer((request: IncomingMessage, response: ServerResponse) => {
     // let filterQuery = queryParms.value
 
 
-    let _url = request.url;
-    let queryParms = url.parse(_url!).query;
-    let filterQuery = queryParms?.split("=").pop()!.replaceAll("%27", " ").replaceAll("%20", ' ').replaceAll("%22", " ");
-    let path = url.parse(_url!).pathname;
+    // let _url = request.url;
+    // let queryParms = url.parse(_url!).query;
+    // let filterQuery = queryParms?.split("=").pop()!.replaceAll("%27", " ").replaceAll("%20", ' ').replaceAll("%22", " ");
+    // let path = url.parse(_url!).pathname;
 
-    if (filterQuery === undefined) {
-        filterQuery = 'No Query Found'
-    }
-    
+    // if (filterQuery === undefined) {
+    //     filterQuery = 'No Query Found'
+    // }
+
     response.setHeader('content-type', 'text/html')
-    response.write(`<h1>Shahwaiz First Server of Node JS</h1> <br> <h2>${filterQuery}</h2><br><h3>${path}</h3>`);
-    
+    // response.write(`<h1>Shahwaiz First Server of Node JS</h1> <br> <h2>${filterQuery}</h2><br><h3>${'PathName :'+' '+path}</h3>`);
+
+    Routing.ServerRouting(response, request);
+
     response.end()
 }).listen(port, hostname, () => {
     console.log('Server Is Running');
